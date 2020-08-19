@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from './auth/authentication.service';
-import { User } from './interfaces/user';
+import { AuthenticationService } from '../../auth/authentication.service';
+import { User } from '../../interfaces/user';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class AppComponent {
+export class HeaderComponent {
+
   currentUser: User;
 
   constructor(
@@ -22,4 +23,5 @@ export class AppComponent {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
+
 }

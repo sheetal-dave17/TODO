@@ -1,0 +1,41 @@
+<div class="todo-container">
+  <h2 style="margin-left: 31%"> Welcome {{ user?.email }} </h2>
+
+
+  <div style="margin: 5% 35%;">
+    <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>title</label>
+        <input type="text" formControlName="title" class="custom-control-inline form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
+        <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+          <div *ngIf="f.title.errors.required">title is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" formControlName="description" class="form-control" />
+      </div>
+      <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Add/Edit Todo
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngFor="let item of todos | paginate: config" class="card todo-card">
+  <div class="card-body">
+    <h5 class="card-title" (click)="displayDescription(item)">
+      <a class="card-link" style="cursor: pointer;"> {{item.title}} </a>
+    </h5>
+    <p class="card-text" *ngIf="item.displayDescription"> {{item.description}} </p>
+  </div>
+  <div class="card-body">
+    <button class="btn btn-primary card-link" (click)="editTodo(item)">Edit</button>
+    <button class="btn btn-primary card-link" (click)="deleteTodo(item)">Delete</button>
+  </div>
+</div>
+  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+</div>
